@@ -4,10 +4,10 @@
 
 (def game-state (atom (game/create-game)))
 
-(def arrow-keys {38 :up
-                 40 :down
-                 37 :left
-                 39 :right})
+(def keycode->direction {38 :up
+                         40 :down
+                         37 :left
+                         39 :right})
 
 (defn Cell [cell]
   [:div.grid-cell
@@ -23,7 +23,7 @@
    (map Row (partition 4 @game-state))])
 
 (defn handle-keys [event]
-  (when-let [key (arrow-keys (.-keyCode event))]
+  (when-let [key (keycode->direction (.-keyCode event))]
     (swap! game-state (partial game/move key))))
 
 (defn ^:export run []
